@@ -213,7 +213,7 @@ export default function App() {
             style={{ background: "radial-gradient(circle, rgba(74,222,128,0.45) 0%, transparent 70%)" }} />
 
           {/* Can */}
-          <div className="animate-float-can absolute -left-16 sm:-left-8 md:-left-4 lg:-left-[180px] xl:-left-[240px] w-[350px] sm:w-[450px] md:w-[600px] lg:w-[1000px] xl:w-[1100px] h-[175px] sm:h-[225px] md:h-[300px] lg:h-[500px] xl:h-[550px] rounded-[2rem] md:rounded-[4rem] xl:rounded-[5rem] overflow-hidden shadow-xl md:shadow-2xl z-10 pointer-events-none">
+          <div className="animate-float-can absolute -left-20 sm:-left-12 md:-left-8 lg:-left-[200px] xl:-left-[260px] w-[320px] sm:w-[420px] md:w-[560px] lg:w-[940px] xl:w-[1040px] h-[160px] sm:h-[210px] md:h-[280px] lg:h-[470px] xl:h-[520px] rounded-[2rem] md:rounded-[4rem] xl:rounded-[5rem] overflow-hidden shadow-xl md:shadow-2xl z-10 pointer-events-none">
             <ImageWithFallback src={mainImg} alt="Sprite Main" className="w-full h-full object-cover" />
           </div>
         </div>
