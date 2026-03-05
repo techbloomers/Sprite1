@@ -41,6 +41,31 @@ export default function App() {
     return () => clearInterval(t);
   }, []);
 
+  // Scroll-triggered float-up animation for KV sections
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target.hasAttribute('data-animate-left')) {
+              const delay = entry.target.getAttribute('data-animate-left') || '0';
+              setTimeout(() => {
+                entry.target.classList.add('animate-fadeSlideLeft');
+              }, parseInt(delay));
+            } else {
+              entry.target.classList.add('animate-fadeSlideUp');
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll('[data-animate]').forEach((el) => observer.observe(el));
+    document.querySelectorAll('[data-animate-left]').forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#e8fdf0] via-[#d4f7e2] to-[#b6f0cc] overflow-clip" style={{ fontFamily: "var(--font-text)" }}>
       <style>{`
@@ -50,6 +75,28 @@ export default function App() {
           10%  { opacity: 0.8; }
           90%  { opacity: 0.5; }
           100% { transform: translateY(-15vh) scale(1.1); opacity: 0; }
+        }
+        @keyframes fadeSlideUp {
+          from { opacity: 0; transform: translateY(40px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeSlideUp {
+          animation: fadeSlideUp 0.8s ease-out forwards;
+        }
+        @keyframes fadeSlideLeft {
+          from { opacity: 0; transform: translateX(-50px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+        .animate-fadeSlideLeft {
+          animation: fadeSlideLeft 0.7s ease-out forwards;
+        }
+        [data-animate] {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        [data-animate-left] {
+          opacity: 0;
+          transform: translateX(-50px);
         }
         @keyframes floatCan {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -198,6 +245,7 @@ export default function App() {
       {/* Features - background image with wave top and diagonal clip at bottom */}
       <section
         id="products"
+        data-animate
         className="relative z-10 pb-48 px-8 bg-cover bg-center -mt-4 scroll-mt-[90px]"
         style={{
           backgroundImage: `url(${teaserKv})`,
@@ -236,6 +284,7 @@ export default function App() {
 
 
       <section
+        data-animate
         className="relative z-10 py-16 px-8 bg-cover bg-center -mt-[110px]"
         style={{
           backgroundImage: `url(${teamKv})`,
@@ -291,9 +340,9 @@ export default function App() {
                 { src: p500can, label: "500ml缶", size: "max-w-[75%]" },
                 { src: p350can, label: "350ml缶", size: "max-w-[70%]" },
               ].map((item, idx) => (
-                <div key={idx} className="flex flex-col items-center">
+                <div key={idx} data-animate-left={`${idx * 120}`} className="flex flex-col items-center">
                   <div className="w-full flex items-end justify-center mb-4 md:mb-8 h-32 sm:h-48 md:h-64 lg:h-72">
-                    <ImageWithFallback src={item.src} alt={item.label} className={`${item.size} h-full object-contain object-bottom drop-shadow-sm`} />
+                    <ImageWithFallback src={item.src} alt={item.label} className={`${item.size} h-full object-contain object-bottom`} />
                   </div>
                   <span className="text-green-800 font-black text-xs md:text-sm whitespace-nowrap bg-green-100/50 px-3 md:px-4 py-1 md:py-1.5 rounded-full border border-green-200/50">{item.label}</span>
                 </div>
