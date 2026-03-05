@@ -42,8 +42,9 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#e8fdf0] via-[#d4f7e2] to-[#b6f0cc] overflow-x-hidden" style={{ fontFamily: "var(--font-text)" }}>
+    <div className="min-h-screen bg-gradient-to-br from-[#e8fdf0] via-[#d4f7e2] to-[#b6f0cc] overflow-clip" style={{ fontFamily: "var(--font-text)" }}>
       <style>{`
+        html { scroll-behavior: smooth; }
         @keyframes bubbleRise {
           0%   { transform: translateY(100vh) scale(0.4); opacity: 0; }
           10%  { opacity: 0.8; }
@@ -114,56 +115,58 @@ export default function App() {
       </div>
 
       {/* Nav */}
-      <nav className="relative z-50 flex items-center justify-between px-8 py-5 bg-white/60 backdrop-blur-md border-b border-green-200/60 shadow-sm">
-        <div className="text-2xl tracking-[0.25em] font-black text-green-600 uppercase drop-shadow-sm">
+      <nav className="sticky top-0 z-50 flex items-center justify-between px-4 md:px-8 py-3 md:py-5 bg-white/60 backdrop-blur-md border-b border-green-200/60 shadow-sm">
+        <div className="text-xl md:text-2xl tracking-[0.2em] md:tracking-[0.25em] font-black text-green-600 uppercase drop-shadow-sm">
           ★ Sprite
         </div>
         <div className="hidden md:flex gap-8 text-sm tracking-widest text-green-700/80 uppercase font-semibold">
-          {["Home", "Products", "Story", "Contact"].map((l) => (
-            <a key={l} href="#" className="hover:text-green-500 transition-colors relative group">
-              {l}
+          {[
+            { label: "Home", href: "#" },
+            { label: "Products", href: "#products" },
+            { label: "Lineup", href: "#lineup" },
+            { label: "SNS", href: "#sns" }
+          ].map((item) => (
+            <a key={item.label} href={item.href} className="hover:text-green-500 transition-colors relative group">
+              {item.label}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-400 group-hover:w-full transition-all duration-300" />
             </a>
           ))}
         </div>
-        <button className="px-5 py-2 rounded-full bg-green-500 text-white text-sm tracking-widest uppercase font-bold hover:bg-green-400 shadow-md shadow-green-300 transition-all duration-300 hover:scale-105">
+        <a href="https://www.amazon.co.jp/%E3%82%B9%E3%83%97%E3%83%A9%E3%82%A4%E3%83%88/s?k=%E3%82%B9%E3%83%97%E3%83%A9%E3%82%A4%E3%83%88" target="_blank" rel="noopener noreferrer" className="px-4 md:px-5 py-1.5 md:py-2 rounded-full bg-green-500 text-white text-xs md:text-sm tracking-wide md:tracking-widest uppercase font-bold hover:bg-green-400 shadow-md shadow-green-300 transition-all duration-300 hover:scale-105">
           Buy Now
-        </button>
+        </a>
       </nav>
 
       {/* Hero */}
-      <section className="relative z-10 min-h-[88vh] flex flex-col md:flex-row items-center justify-center gap-12 px-8 md:px-20 pt-10 pb-16">
+      <section className="relative z-10 min-h-[85vh] md:min-h-[88vh] flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 px-6 md:px-20 pt-8 pb-16 overflow-hidden">
         {/* Left text */}
-        <div className="flex-1 text-center md:text-left">
-          <h1 className="shimmer-green text-[clamp(5rem,14vw,10rem)] font-black leading-none tracking-tighter mb-4" style={{ fontFamily: "var(--font-headline)" }}>
-            SPRITE
+        <div className="flex-1 text-center md:text-left pt-10 md:pt-0 z-20">
+          <h1 className="shimmer-green text-[clamp(4.5rem,14vw,10rem)] leading-tight font-black tracking-tighter mb-4 pb-4 md:pb-8" style={{ fontFamily: "var(--font-headline)" }}>
+            Sprite
           </h1>
-          <p className="text-green-700/80 tracking-[0.3em] uppercase text-sm mb-6">
+          <p className="text-green-700/80 tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-4 md:mb-6">
             Lemon · Lime · Sparkling
           </p>
-          <p className="text-green-800/60 text-base leading-relaxed max-w-sm mb-10">
+          <p className="text-green-800/60 text-sm md:text-base leading-relaxed max-w-[280px] md:max-w-sm mx-auto md:mx-0 mb-8 md:mb-10">
             はじける炭酸とシトラスの爽やかさが<br />一口でひろがる、最高のリフレッシュ体験。
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <button className="group px-8 py-4 rounded-full bg-green-500 text-white font-black tracking-widest uppercase text-sm shadow-lg shadow-green-300/60 hover:bg-green-400 hover:scale-105 transition-all duration-300">
-              今すぐ体験 →
-            </button>
-            <button className="px-8 py-4 rounded-full border-2 border-green-400 text-green-600 font-bold tracking-widest uppercase text-sm hover:bg-green-100 transition-all duration-300">
-              詳しく見る
-            </button>
+            <a href="https://www.amazon.co.jp/%E3%82%B9%E3%83%97%E3%83%A9%E3%82%A4%E3%83%88/s?k=%E3%82%B9%E3%83%97%E3%83%A9%E3%82%A4%E3%83%88" target="_blank" rel="noopener noreferrer" className="group px-6 md:px-8 py-3 md:py-4 rounded-full bg-green-500 text-white font-black tracking-widest uppercase text-xs md:text-sm shadow-lg shadow-green-300/60 hover:bg-green-400 hover:scale-105 transition-all duration-300 text-center block max-w-xs mx-auto md:mx-0">
+              ご購入はこちら →
+            </a>
           </div>
         </div>
 
         {/* Right: can + decoration */}
-        <div className="flex-1 flex items-center justify-center relative w-full h-full min-h-[500px]">
+        <div className="flex-1 flex items-center justify-center relative w-full h-full min-h-[350px] md:min-h-[500px]">
           {/* Spinning ring */}
-          <div className="absolute w-80 h-80 rounded-full border-4 border-dashed border-green-300/50 spin-slow z-0" />
+          <div className="absolute w-[280px] md:w-80 h-[280px] md:h-80 border-[3px] md:border-4 rounded-full border-dashed border-green-300/50 spin-slow z-0" />
           {/* Glow circle */}
-          <div className="absolute w-64 h-64 rounded-full z-0"
+          <div className="absolute w-48 md:w-64 h-48 md:h-64 rounded-full z-0"
             style={{ background: "radial-gradient(circle, rgba(74,222,128,0.45) 0%, transparent 70%)" }} />
 
           {/* Can */}
-          <div className="animate-float-can absolute left-0 md:left-5 lg:-left-[200px] w-[550px] md:w-[820px] lg:w-[1100px] h-[275px] md:h-[410px] lg:h-[550px] rounded-[3rem] md:rounded-[5rem] overflow-hidden shadow-2xl z-10 pointer-events-none">
+          <div className="animate-float-can absolute -left-16 sm:-left-8 md:-left-4 lg:-left-[180px] xl:-left-[240px] w-[350px] sm:w-[450px] md:w-[600px] lg:w-[1000px] xl:w-[1100px] h-[175px] sm:h-[225px] md:h-[300px] lg:h-[500px] xl:h-[550px] rounded-[2rem] md:rounded-[4rem] xl:rounded-[5rem] overflow-hidden shadow-xl md:shadow-2xl z-10 pointer-events-none">
             <ImageWithFallback src={mainImg} alt="Sprite Main" className="w-full h-full object-cover" />
           </div>
         </div>
@@ -186,24 +189,32 @@ export default function App() {
         ))}
 
         {/* Badge */}
-        <div className="absolute top-12 right-12 bg-yellow-400 text-yellow-900 rounded-full w-20 h-20 flex flex-col items-center justify-center shadow-lg text-center rotate-12">
-          <span className="text-sm font-black leading-tight">LEMON</span>
-          <span className="text-[11px] font-bold">LIME</span>
+        <div className="absolute top-4 right-4 md:top-20 md:right-12 z-50 bg-yellow-400 text-yellow-900 rounded-full w-16 h-16 md:w-20 md:h-20 flex flex-col items-center justify-center shadow-lg text-center rotate-12 scale-90 md:scale-100 origin-center">
+          <span className="text-xs md:text-sm font-black leading-tight">LEMON</span>
+          <span className="text-[9px] md:text-[11px] font-bold">LIME</span>
         </div>
       </section>
 
       {/* Features - background image with wave top and diagonal clip at bottom */}
       <section
-        className="relative z-10 pb-48 px-8 bg-cover bg-center -mt-4"
+        id="products"
+        className="relative z-10 pb-48 px-8 bg-cover bg-center -mt-4 scroll-mt-[90px]"
         style={{
           backgroundImage: `url(${teaserKv})`,
           clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 120px), 0 100%)",
         }}
       >
         {/* Wave overlay at top - masks the transition */}
-        <div className="absolute top-0 left-0 w-full z-10">
-          <svg viewBox="0 0 1440 60" className="w-full block" preserveAspectRatio="none" style={{ height: 60 }}>
-            <path d="M0,30 C360,60 1080,0 1440,30 L1440,0 L0,0 Z" fill="#d4f7e2" />
+        <div className="absolute top-[-1px] left-0 w-full z-10">
+          <svg viewBox="0 0 1440 60" className="w-full block" preserveAspectRatio="none" style={{ height: 61 }}>
+            <defs>
+              <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#e8fdf0" />
+                <stop offset="50%" stopColor="#d4f7e2" />
+                <stop offset="100%" stopColor="#b6f0cc" />
+              </linearGradient>
+            </defs>
+            <path d="M0,30 C360,60 1080,0 1440,30 L1440,0 L0,0 Z" fill="url(#heroGradient)" />
           </svg>
         </div>
         {/* Dark overlay */}
@@ -246,38 +257,45 @@ export default function App() {
       </section>
 
       {/* Wave */}
-      <div className="relative z-10">
-        <svg viewBox="0 0 1440 60" className="w-full" preserveAspectRatio="none" style={{ height: 60 }}>
-          <path d="M0,30 C360,0 1080,60 1440,30 L1440,0 L0,0 Z" fill="white" fillOpacity="0.7" />
+      <div className="relative z-10 mt-[-1px]">
+        <svg viewBox="0 0 1440 60" className="w-full block" preserveAspectRatio="none" style={{ height: 61 }}>
+          <defs>
+            <linearGradient id="heroGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#e8fdf0" />
+              <stop offset="50%" stopColor="#d4f7e2" />
+              <stop offset="100%" stopColor="#b6f0cc" />
+            </linearGradient>
+          </defs>
+          <path d="M0,30 C360,0 1080,60 1440,30 L1440,0 L0,0 Z" fill="url(#heroGradient2)" />
         </svg>
       </div>
 
       {/* Lime & bubbles section */}
-      <section className="relative z-10 py-24 px-8">
+      <section id="lineup" className="relative z-10 py-16 md:py-24 px-4 md:px-8 scroll-mt-[80px]">
         <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
-          <h2 className="text-5xl md:text-6xl font-black text-green-800 mb-8 leading-tight" style={{ fontFamily: "var(--font-headline)" }}>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-green-800 mb-6 md:mb-8 leading-tight" style={{ fontFamily: "var(--font-headline)" }}>
             スプライトのラインナップ
           </h2>
-          <p className="text-green-700/70 text-lg md:text-xl leading-relaxed mb-12 max-w-3xl">
-            気分や場面に合わせて選べる、多彩なスプライトのラインナップ。<br />
+          <p className="text-green-700/70 text-base md:text-lg lg:text-xl leading-relaxed mb-10 md:mb-12 max-w-xl md:max-w-3xl px-4">
+            気分や場面に合わせて選べる、多彩なスプライトのラインナップ。<br className="hidden md:block" />
             どんな時でも、あなたの最高のリフレッシュをサポートします。
           </p>
 
-          <div className="bg-white/95 backdrop-blur-md rounded-[3.5rem] p-12 md:p-20 shadow-2xl border border-white/50 w-full max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-x-8 gap-y-12 items-end">
+          <div className="bg-white/95 backdrop-blur-md rounded-[2rem] md:rounded-[3.5rem] p-6 md:p-12 lg:p-20 shadow-xl md:shadow-2xl border border-white/50 w-full max-w-6xl mx-auto">
+            <div className="grid grid-cols-2 lg:grid-cols-6 gap-x-4 md:gap-x-8 gap-y-10 md:gap-y-12 items-end">
               {[
-                { src: p15l, label: "1.5L", size: "max-w-full" },
-                { src: p700ml, label: "700ml", size: "max-w-[85%]" },
-                { src: p470ml, label: "470ml", size: "max-w-[75%]" },
-                { src: p350ml, label: "350ml", size: "max-w-[70%]" },
+                { src: p15l, label: "1.5L", size: "max-w-none w-[115%] scale-110 origin-bottom" },
+                { src: p700ml, label: "700ml", size: "max-w-[95%]" },
+                { src: p470ml, label: "470ml", size: "max-w-[65%]" },
+                { src: p350ml, label: "350ml", size: "max-w-[60%]" },
                 { src: p500can, label: "500ml缶", size: "max-w-[75%]" },
                 { src: p350can, label: "350ml缶", size: "max-w-[70%]" },
               ].map((item, idx) => (
                 <div key={idx} className="flex flex-col items-center">
-                  <div className="w-full flex items-end justify-center mb-8 h-48 md:h-72">
-                    <ImageWithFallback src={item.src} alt={item.label} className={`${item.size} h-full object-contain object-bottom`} />
+                  <div className="w-full flex items-end justify-center mb-4 md:mb-8 h-32 sm:h-48 md:h-64 lg:h-72">
+                    <ImageWithFallback src={item.src} alt={item.label} className={`${item.size} h-full object-contain object-bottom drop-shadow-sm`} />
                   </div>
-                  <span className="text-green-800 font-black text-sm md:text-base whitespace-nowrap bg-green-100/50 px-4 py-1.5 rounded-full border border-green-200/50">{item.label}</span>
+                  <span className="text-green-800 font-black text-xs md:text-sm whitespace-nowrap bg-green-100/50 px-3 md:px-4 py-1 md:py-1.5 rounded-full border border-green-200/50">{item.label}</span>
                 </div>
               ))}
             </div>
@@ -286,24 +304,24 @@ export default function App() {
       </section>
 
       {/* Ingredients & SNS Section */}
-      <section className="relative z-10 py-16 px-8">
-        <div className="max-w-3xl mx-auto space-y-6">
+      <section id="sns" className="relative z-10 py-12 md:py-16 px-4 md:px-8 scroll-mt-[80px]">
+        <div className="max-w-3xl mx-auto space-y-4 md:space-y-6">
           {/* Accordion for Ingredients & Nutrition */}
-          <div className="bg-white/95 backdrop-blur-md border border-green-100 rounded-3xl shadow-xl overflow-hidden transition-all duration-300">
+          <div className="bg-white/95 backdrop-blur-md border border-green-100 rounded-2xl md:rounded-3xl shadow-xl overflow-hidden transition-all duration-300">
             <button
               onClick={() => setIsIngredientsOpen(!isIngredientsOpen)}
-              className="w-full px-8 py-5 flex items-center justify-between text-left hover:bg-green-50 transition-colors"
+              className="w-full px-5 md:px-8 py-4 md:py-5 flex items-center justify-between text-left hover:bg-green-50 transition-colors"
             >
-              <span className="font-black text-green-900 tracking-widest">原材料・成分について</span>
-              <ChevronDown className={`text-green-500 transition-transform duration-300 ${isIngredientsOpen ? 'rotate-180' : ''}`} size={24} />
+              <span className="font-black text-green-900 tracking-wider md:tracking-widest text-sm md:text-base">原材料・成分について</span>
+              <ChevronDown className={`text-green-500 transition-transform duration-300 ${isIngredientsOpen ? 'rotate-180' : ''}`} size={20} />
             </button>
 
-            <div className={`transition-all duration-500 ease-in-out ${isIngredientsOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-              <div className="p-8 md:p-12 border-t border-green-50">
-                <h3 className="text-xl font-black text-green-900 mb-4">栄養成分表示</h3>
-                <div className="h-0.5 bg-green-800 mb-4"></div>
-                <p className="text-sm font-bold text-green-700 mb-2">100ml当たり</p>
-                <div className="h-[1px] bg-green-200 mb-6"></div>
+            <div className={`transition-all duration-500 ease-in-out ${isIngredientsOpen ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
+              <div className="p-5 md:p-8 lg:p-12 border-t border-green-50">
+                <h3 className="text-lg md:text-xl font-black text-green-900 mb-3 md:mb-4">栄養成分表示</h3>
+                <div className="h-0.5 bg-green-800 mb-3 md:mb-4"></div>
+                <p className="text-xs md:text-sm font-bold text-green-700 mb-2">100ml当たり</p>
+                <div className="h-[1px] bg-green-50 mb-4 md:mb-6"></div>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-y-6 gap-x-8 mb-8">
                   {[
@@ -321,7 +339,7 @@ export default function App() {
                   ))}
                 </div>
 
-                <div className="h-[1px] bg-green-200 mb-6"></div>
+                <div className="h-[1px] bg-green-800 mb-6"></div>
                 <h4 className="text-sm font-black text-green-800 mb-3">原材料名</h4>
                 <p className="text-sm text-green-700 leading-relaxed mb-6 font-medium">
                   果糖ぶどう糖液糖（国内製造）／炭酸、酸味料、香料、酸化防止剤（ビタミンC）、甘味料（スクラロース、ステビア）
@@ -334,16 +352,16 @@ export default function App() {
           </div>
 
           {/* SNS Bar */}
-          <div className="bg-black text-white rounded-full px-8 py-5 flex items-center justify-between shadow-2xl">
-            <span className="font-bold tracking-widest text-sm md:text-base">スプライト公式SNSアカウント</span>
+          <div className="bg-black text-white rounded-full px-5 md:px-8 py-4 md:py-5 flex flex-col md:flex-row items-center gap-4 md:gap-0 justify-between shadow-2xl">
+            <span className="font-bold tracking-widest text-xs md:text-sm lg:text-base">スプライト公式SNSアカウント</span>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-black hover:bg-yellow-300 transition-colors">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <a href="#" className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center text-black hover:bg-yellow-300 transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="md:w-[20px] md:h-[20px]">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-black hover:bg-yellow-300 transition-colors">
-                <Instagram size={20} />
+              <a href="#" className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center text-black hover:bg-yellow-300 transition-colors">
+                <Instagram size={16} className="md:w-[20px] md:h-[20px]" />
               </a>
             </div>
           </div>
